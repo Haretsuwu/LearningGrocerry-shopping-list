@@ -1,0 +1,14 @@
+Criar um app com 2 telas
+1a tela listar os registros
+2a tela cadastro de registro
+2a 2 inputs, 1 de valor e 1 descrição
+Usar storage
+
+Melhorias:
+Aparecer o preço dos itens
+Mostrar quantidade de itens cadastrados e mostrar soma de todos os itens
+Adicionar supermecados e mostrar os mercados na tela
+
+
+Tarefa de casa:
+Pensar no próximo desafio

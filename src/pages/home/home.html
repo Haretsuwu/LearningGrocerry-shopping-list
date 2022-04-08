@@ -1,14 +1,24 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Lista de Registros
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v3">docs</a> will be your guide.
-  </p>
+  <div ion-item *ngFor="let element of showSumValuesByCategory()">
+    {{ element.category }}: {{ element.value }} <br>
+  </div>
+  <ion-list>
+    <span *ngIf="records"> quantidade: {{ records.length }} </span>
+    soma dos valores {{ sumAllProductValue() }} <br>
+    <button ion-item *ngFor="let record of records">
+      {{ record.description }}: {{ record.value }} <br>
+      {{ record.category }} <br>
+      Super Mercados:
+    </button>
+  </ion-list>
+  <button ion-button full (click)="goToCadastroPage()"> Cadastrar </button>
+  <button ion-button full (click)="junk()"> junk </button>
 </ion-content>

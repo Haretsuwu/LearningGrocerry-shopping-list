@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>cadastro</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <button ion-button (click)="autoFill()">AutoPreenchimento</button>
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Descrição</ion-label>
+      <ion-input type="text" [(ngModel)]="product.description"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Valor</ion-label>
+      <ion-input type="text" [(ngModel)]="product.value"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Categoria</ion-label>
+      <ion-input type="text" [(ngModel)]="product.category"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Lugar de Venda 1</ion-label>
+      <ion-input type="text" [(ngModel)]="product.superMarket"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Lugar de venda 2</ion-label>
+      <!-- <ion-input type="text" [(ngModel)]="product.superMarket2"></ion-input> -->
+    </ion-item>
+
+    <button ion-button full (click)="register(product)"> Registrar </button>
+
+  </ion-list>
+</ion-content>
