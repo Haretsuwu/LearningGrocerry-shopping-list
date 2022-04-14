@@ -1,69 +1,84 @@
-import { CadastroPage } from './../cadastro/cadastro';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
+import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
+import { CategoryPage } from '../category/category';
 import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
+import { CadastroPage } from './../cadastro/cadastro';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public records: any =  [{description: 'coquinha', value: '13', category: 'refri', superMarkets: ["extra", "pão de açucar"]}
-  ,{description: 'Heiniken', value: '7', category: 'Cerveja', superMarkets: ["exito", "pão de açucar"]}
-  ,{description: 'Skol', value: '11', category: 'Refrigerante', superMarkets: ["são luis", "pague menos"]}
-  ,{description: 'Coquinha', value: '20', category: 'Cerveja', superMarkets: ["mercadin", "zezin"]}
-  ,{description: 'Almoço', value: '10', category: 'Cerveja', superMarkets: ["extra", "padaria"]}
-  ,{description: 'Coquinha', value: '10', category: 'Refrigerante', superMarkets: ["extra", "pão de açucar"]}
-]
+  public records: any;
 
-  constructor(public navCtrl: NavController, public storage: StorageServiceProvider) {
-    this.storage.getSaved().then(productsFromStorage => {
-      if (productsFromStorage) {
-        // this.records = productsFromStorage;
-      } else {
-        return false;
-      }
-    });
-    this.sumAllProductValue();
-    this.showSumValuesByCategory()
+  constructor(public navCtrl: NavController,
+    public storage: StorageServiceProvider,
+    public categoryStorage: CategoryStorageServiceProvider,
+    public alertCtrl: AlertController
+  ) {
+    this.preSetedCategories();
   }
 
-  // segundaFuncao() {
 
-  // }
+  // this.categoryStorage.initData(["Refeição", "Suco", "Limpeza"]);
 
-  // primeiraFuncao() {
+  async preSetedCategories() {
+    return await this.categoryStorage.initData(["Sem categoria","Refeição", "Suco", "Limpeza"]);
+  }
 
-  //   function segundaFuncao() {
+  async pegaDados() {
+    const resultado: any = await fetch('https://api.github.com/users/IArturRodrigues')
+    const resultado2: any = await fetch('https://api.github.com/users/IArturRodrigues')
+    const resultado3: any = await fetch('https://api.github.com/users/IArturRodrigues')
 
-  //   }
+    console.log(resultado.status);
+  }
 
+  ionViewDidEnter() {
+    this.showProductsListInPage();
+    this.sumAllProductValue();
+    this.showSumValuesByCategory();
+  }
+
+  async showProductsListInPage() {
+    this.records = await this.storage.getSaved();
+  }
+
+  // ionViewDidEnter() {
+  //   this.storage.getSaved().then(productsFromStorage => {
+  //     if (productsFromStorage) {
+  //       return this.records = productsFromStorage;
+  //     }
+  //   });
+  //   this.sumAllProductValue();
+  //   this.showSumValuesByCategory();
   // }
 
   sumAllProductValue() {
     let plus = 0;
-    if(this.records) {
-       this.records.forEach(element => {
-        plus += +element.value
+    if (this.records) {
+      this.records.forEach(element => {
+        plus += +element.value;
       });
     }
     return plus;
   }
 
   showSumValuesByCategory() {
-    let categoryAndValues = []
-    if(this.records) {
+    let categoryAndValues = [];
+    if (this.records) {
       this.records.forEach(obj => {
         let soma = 0;
-        let existe = categoryAndValues.some(nResult => nResult.category == obj.category)
+        let existe = categoryAndValues.some(nResult => nResult.category == obj.category);
         this.records.filter((objt) => {
-          if(objt.category === obj.category) {
+          if (objt.category === obj.category) {
             let value = +objt.value;
             soma += value;
           }
         });
-        if(!existe) {
-          categoryAndValues.push({category: obj.category, value: soma})
+        if (!existe) {
+          categoryAndValues.push({ category: obj.category, value: soma });
         }
       });
     }
@@ -78,4 +93,86 @@ export class HomePage {
   goToCadastroPage() {
     this.navCtrl.push(CadastroPage);
   }
+
+  goToCategoryPage() {
+    this.navCtrl.push(CategoryPage);
+  }
+
+  editProduct(product) {
+    this.navCtrl.push(CadastroPage, {
+      'product': product
+    });
+  }
 }
+
+//   showRadio() {
+//     let alert = this.alertCtrl.create();
+//     alert.setTitle('Lightsaber color');
+
+//     for(let record of this.records) {
+//       alert.addInput({
+//         type: 'radio',
+//         label: record.description,
+//         value: record,
+//         checked: true
+//       });
+//     }
+
+//     alert.addButton('Cancel');
+//     alert.addButton({
+//       text: 'OK',
+//       handler: data => {
+//         console.log("escolheu ",  data);
+//         // this.testRadioOpen = false;
+//         // this.testRadioResult = data;
+//       }
+//     });
+//     alert.addButton({
+//       text: 'teste',
+//       handler: data => {
+//         this.showPrompt();
+//       }
+//     });
+//     alert.present();
+//   }
+
+//   showPrompt() {
+//     const prompt = this.alertCtrl.create({
+//       title: 'Coloque algo',
+//       inputs: [
+//         {
+//           name: 'categoria',
+//           placeholder: 'Algo'
+//         },
+//       ],
+//       buttons: [
+//         {
+//           text: 'Cancel',
+//           handler: data => {
+//             console.log('Cancel clicked');
+//           }
+//         },
+//         {
+//           text: 'Save',
+//           handler: data => {
+//             console.log('Saved clicked');
+//             console.log(data);
+//           }
+//         }
+//       ]
+//     });
+//     prompt.present();
+//   }
+// }
+
+  // segundaFuncao() {
+
+  // }
+
+  // primeiraFuncao() {
+
+  //   function segundaFuncao() {
+
+  //   }
+
+  // }

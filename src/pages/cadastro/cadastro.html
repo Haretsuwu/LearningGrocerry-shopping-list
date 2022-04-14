@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>cadastro</ion-title>
+    <ion-title>Cadastro/Editar</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -18,22 +18,26 @@
       <ion-input type="text" [(ngModel)]="product.value"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Categoria</ion-label>
-      <ion-input type="text" [(ngModel)]="product.category"></ion-input>
-    </ion-item>
+    <!-- <ion-item> -->
+      <!-- <ion-label floating>Categoria</ion-label>
+      <ion-input type="text" [(ngModel)]="product.category"></ion-input> -->
+      <button ion-button full (click)="showCategories()"> Categoria </button>
+    <!-- </ion-item> -->
 
     <ion-item>
-      <ion-label floating>Lugar de Venda 1</ion-label>
-      <ion-input type="text" [(ngModel)]="product.superMarket"></ion-input>
+      <ion-label floating>Lugar que Vende</ion-label>
+      <ion-input type="text" [(ngModel)]="place"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Lugar de venda 2</ion-label>
-      <!-- <ion-input type="text" [(ngModel)]="product.superMarket2"></ion-input> -->
-    </ion-item>
+    <div *ngFor="let place of product.superMarkets">
+      <button ion-button primary small (click)="removePlaceFromSuperMarkets(place)">Delete {{ place }}</button>
+      <button ion-button secondary small (click)="editPlace(place)"> Editar Lugar {{ place }}</button>
+    </div>
 
+    <button ion-button full (click)="addPlaceToSuperMarkets()"> Adicionar Lugar </button>
+    <button ion-button style="background-color:deepskyblue;" full (click)="uppdateProduct(product)"> Atualizar </button>
     <button ion-button full (click)="register(product)"> Registrar </button>
+    <button ion-button full (click)="removeProduct()"> Remover </button>
 
   </ion-list>
 </ion-content>

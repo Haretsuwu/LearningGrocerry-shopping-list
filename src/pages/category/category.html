@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Categorias</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <button ion-button primary style="background-color: purple" (click)="create()"> Criar Nova Categoria </button>
+
+  <ion-list *ngFor="let category of categories">
+    {{ category.name }} <br>
+    <button ion-button primary (click)="update()"> Update </button>
+    <button ion-button secondary (click)="delete(category)"> Deletar </button>
+  </ion-list>
+
+</ion-content>

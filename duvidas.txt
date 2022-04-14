@@ -1,0 +1,5 @@
+Async await
+chamadas http (axios, fetch, curl, insomnia)
+explicar return, tipagem
+Git
+Clean code/S.O.L.I.D

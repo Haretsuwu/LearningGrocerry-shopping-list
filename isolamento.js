@@ -32,16 +32,16 @@
 // console.log(novo)
 
 
-const descriptions = ["Coquinha", "Pepsi", "Heiniken", "Skol", "Almoço"];
-const values = [10, 13, 12, 11, 8, 7, 20];
-const categories = ["Refrigerante", "Cerveja", "Refeição"];
-const superMarkets = ["São Luiz", "Extra", "Gbarbosa", "Mercadinho da esquina", "Bom preço", "Pão de Açucar"];
-this.product = {
-  description: "",
-  value: "10",
-  category: "Refrigerante",
-  superMarket: "Extra",
-  superMarket2: "Pão de açucar"
-};
-var item = descriptions[Math.floor(Math.random()*descriptions.length)];
-console.log(item)
+// const descriptions = ["Coquinha", "Pepsi", "Heiniken", "Skol", "Almoço"];
+// const values = [10, 13, 12, 11, 8, 7, 20];
+// const categories = ["Refrigerante", "Cerveja", "Refeição"];
+// const superMarkets = ["São Luiz", "Extra", "Gbarbosa", "Mercadinho da esquina", "Bom preço", "Pão de Açucar"];
+// this.product = {
+//   description: "",
+//   value: "10",
+//   category: "Refrigerante",
+//   superMarket: "Extra",
+//   superMarket2: "Pão de açucar"
+// };
+// var item = descriptions[Math.floor(Math.random()*descriptions.length)];
+// console.log(item)

@@ -8,7 +8,30 @@ Melhorias:
 Aparecer o preço dos itens
 Mostrar quantidade de itens cadastrados e mostrar soma de todos os itens
 Adicionar supermecados e mostrar os mercados na tela
+Adicionar lugares que vende o produto, e retirar um lugar específico
+Editar lugares de venda
+Editar Produto
+Criar um menu para as Categorias em cadasatros/deleção
+Fazer CRUD das categorias
+Verificar se o atualizar produtos está funcionando
+
+Criar categorias padrões
+Instalar plugin nativo da camera
 
 
 Tarefa de casa:
-Pensar no próximo desafio
+Pensar no próximo desafio.
+
+Adicionar a forma como o produto pode ser pago. ex: Alimentação ou Crédito.
+Adicionar categoria e metodo de pagamento (o pagamento não sendo obrigatório, mas a categoria sim).
+Fazer pre-sets entre categoria e pagamento. ex: Se eu colocar que categoria é "Refeição" eu posso presetar que o método de pagamento é "Alimentação", salvando isso como um "perfil".
+
+(Talvez) Criar um provider que guarde as categorias e os métodos de pagamento.
+
+Na tela de cadasatros de categoria/pagamento, pode ter apenas 1 categoria e N metodos de pagamento, porém mostrados de forma ordinal em que o primeiro deve ser o principal (mais utilizado ou recomendado para pagar aquele produto), enquanto os outros serão para o caso de a forma principal não estar funcionando
+O método de pagamento, além de receber um nome como "Alimentação" ou "Crédito", pode receber certas informações sobre o cartão a ser utilizado para pagar aquele produto
+
+Criar perfis de lista de compras. ex: A tela inicial deve mostrar os perfis caso haja mais de um, se não deve apenas aparecer a única lista de compras existente. Esses perfis podem ser nomeados da forma que o usuário quiser e ao entrar terá sua lista de compras.
+A lista deve ser itens a serem marcados (mas que também podem ser editados), e conforme forem marcados deve mostrar a soma total dos produtos e sua quantidade, assim como também mostrar a quantidade e a soma dos valores para cada categoria
+
+(Talvez) Poder criar sub-categorias dentro das categorias, porém somente essas sub-categorias poderiam ter métodos de pagamento. ex: Uma categoria chamada "Bebidas" e dentro dela pode ter categorias como "Suco", "Água", "Refrigerante".

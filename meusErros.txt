@@ -1,1 +1,3 @@
-Ctrl+C Ctrl+V = 1
+Ctrl+C Ctrl+V = 3
+Ctrl+S = 2
+Tentando mostrar coisas que não existem = 1

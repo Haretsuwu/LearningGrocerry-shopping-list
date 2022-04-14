@@ -7,18 +7,24 @@
 </ion-header>
 
 <ion-content padding>
+  <button ion-button secondary (click)="pegaDados()"> Pegar dados </button>
+  <button ion-button primary (click)="goToCadastroPage()"> Cadastrar </button>
+  <button ion-button secondary (click)="goToCategoryPage()"> Categorias </button>
   <div ion-item *ngFor="let element of showSumValuesByCategory()">
     {{ element.category }}: {{ element.value }} <br>
   </div>
   <ion-list>
     <span *ngIf="records"> quantidade: {{ records.length }} </span>
     soma dos valores {{ sumAllProductValue() }} <br>
-    <button ion-item *ngFor="let record of records">
+    <button ion-item *ngFor="let record of records" (click)="editProduct(record)">
       {{ record.description }}: {{ record.value }} <br>
       {{ record.category }} <br>
       Super Mercados:
+      <span>
+        <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
+      </span>
     </button>
   </ion-list>
-  <button ion-button full (click)="goToCadastroPage()"> Cadastrar </button>
-  <button ion-button full (click)="junk()"> junk </button>
+  <!-- <button ion-button full (click)="showRadio()"> junk </button>
+  <button ion-button full (click)="showPrompt()"> teste </button> -->
 </ion-content>

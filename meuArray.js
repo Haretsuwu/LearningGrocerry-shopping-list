@@ -28,6 +28,8 @@ const latinhaInversa = [...latinhas].reverse()
 // forEach: faz um for passando em cada item do array
 latinhas.forEach(lata => console.log(lata))
 
+const index = latinhas.findIndex(obj => obj === "Sprite");
+
 // obs: as funções pop, push e reverse alteram o array original
 
 console.log(latinhas)
@@ -43,3 +45,5 @@ console.log(guarana)
 console.log(latinhaInversa)
 
 console.log(novasLatinhas)
+
+console.log("index ",index);
