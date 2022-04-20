@@ -26,13 +26,13 @@ export class CategoryStorageServiceProvider {
         getCategory.push({name: categoryName, id: uuidv4()});
       }
     }
-    return await this.storage.set(this.categoriesString, getCategory);
+    await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
   
   async saveCategory(category) {
     let getCategory = await this.getCategory();
     getCategory.push({name: category.name, id: uuidv4()});
-    return await this.storage.set(this.categoriesString, getCategory);
+    await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
   async getCategory() {
@@ -43,14 +43,14 @@ export class CategoryStorageServiceProvider {
     let getCategory = await this.getCategory();
     let index = getCategory.findIndex(category => category.id === categoryToBeUpdate.id);
     getCategory.splice(index, 1, categoryToBeUpdate);
-    return await this.storage.set(this.categoriesString, getCategory);
+    await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
   async removeCategory(categoryToBeRemoved) {
     let getCategory = await this.getCategory();
     let index = getCategory.findIndex(product => product.id === categoryToBeRemoved.id);
     getCategory.splice(index, 1);
-    return await this.storage.set(this.categoriesString, getCategory);
+    await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
 }

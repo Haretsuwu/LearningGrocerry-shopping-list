@@ -24,7 +24,7 @@ export class HomePage {
   // this.categoryStorage.initData(["Refeição", "Suco", "Limpeza"]);
 
   async preSetedCategories() {
-    return await this.categoryStorage.initData(["Sem categoria","Refeição", "Suco", "Limpeza"]);
+    await this.categoryStorage.initData(["Sem categoria","Refeição", "Suco", "Limpeza"]);
   }
 
   async pegaDados() {
@@ -37,8 +37,8 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.showProductsListInPage();
-    this.sumAllProductValue();
-    this.showSumValuesByCategory();
+    // this.sumAllProductValue();
+    // this.showSumValuesByCategory();
   }
 
   async showProductsListInPage() {
@@ -62,7 +62,7 @@ export class HomePage {
         plus += +element.value;
       });
     }
-    return plus;
+    return plus; //precisa, pois a função tem que mostrar o valor dessa variavel
   }
 
   showSumValuesByCategory() {
@@ -82,13 +82,29 @@ export class HomePage {
         }
       });
     }
-    return categoryAndValues;
+    return categoryAndValues; //precisa retornar os elementos desse array
   }
 
-  async junk() {
-    console.log(await this.storage.getSaved());
-    console.log(this.records);
-  }
+  // async junk() {
+  //   console.log("return ",this.thisFunctionReturnAValue());
+  //   console.log("not return ",this.thisFunctionNotReturn());
+  // }
+
+  // thisFunctionReturnAValue() {
+  //   return "Olá mundo";
+  // }
+
+  // thisFunctionNotReturn() {
+  //   const hw = "Olá mundo";
+  // }
+
+  // bugginReturn(value) {
+  //   if(value === 1) {
+  //     return "sim";
+  //   }
+  //   console.log("Este codigo deve executar!");
+  //   return "não";
+  // }
 
   goToCadastroPage() {
     this.navCtrl.push(CadastroPage);

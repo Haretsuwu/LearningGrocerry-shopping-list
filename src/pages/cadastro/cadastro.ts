@@ -49,13 +49,11 @@ export class CadastroPage {
     let savedProducts = await this.storage.getSaved();
     let exists = savedProducts.some(alreadyExist => alreadyExist.description === register.description);
     if(exists) {
-      alert("Esse valor já existe");
-      return;
+      return alert("Esse valor já existe");
+      // return;
     }
-
-    let res = await this.storage.save(register);
-    console.log(res);
-    return res;
+    console.log("Não deveria estar aqui")
+    await this.storage.save(register);
     // this.storage.save(register).then(res => res).then(json => console.log(json));
   }
 
