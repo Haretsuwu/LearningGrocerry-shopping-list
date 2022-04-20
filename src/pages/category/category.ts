@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ICategory } from '../../interfaces/ICategory';
 import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
 
 
@@ -9,7 +10,7 @@ import { CategoryStorageServiceProvider } from '../../providers/category-storage
   templateUrl: 'category.html',
 })
 export class CategoryPage {
-  public categories: any;
+  public categories: ICategory[];
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -22,7 +23,7 @@ export class CategoryPage {
   }
 
   async getCategories() {
-    this.categories = await this.categoryStorage.getCategory();
+    this.categories = await this.categoryStorage.getCategories();
   }
 
   // getCategories() {
@@ -53,7 +54,7 @@ export class CategoryPage {
         },
         {
           text: 'Salvar',
-          handler: async data => {
+          handler: async (data: ICategory) => {
             console.log('Saved clicked');
             await this.categoryStorage.saveCategory(data);
             this.getCategories();
@@ -64,13 +65,13 @@ export class CategoryPage {
     prompt.present();
   }
 
-  update() {
+  update(category: ICategory) {
     const prompt = this.alertCtrl.create({
       title: 'Editar Categoria',
       inputs: [
         {
           name: 'name',
-          placeholder: this.categories.name
+          placeholder: category.name
         },
       ],
       buttons: [
@@ -82,9 +83,11 @@ export class CategoryPage {
         },
         {
           text: 'Salvar',
-          handler: async data => {
+          handler: async (data: ICategory) => {
             console.log('Saved clicked');
-            await this.categoryStorage.updateCategory(data);
+            console.log(data);
+            category.name = data.name;
+            await this.categoryStorage.updateCategory(category);
             this.getCategories();
           }
         }
@@ -93,7 +96,7 @@ export class CategoryPage {
     prompt.present();
   }
 
-  async delete(category) {
+  async delete(category: ICategory) {
     await this.categoryStorage.removeCategory(category);
     this.getCategories();
   }

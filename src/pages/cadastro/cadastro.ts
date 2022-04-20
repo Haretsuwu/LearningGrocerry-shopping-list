@@ -1,9 +1,18 @@
+import { IRecords } from './../../interfaces/IRecords';
+import { ICategory } from './../../interfaces/ICategory';
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
 import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
 import { v4 as uuidv4 } from 'uuid';
 
+interface IProduct {
+  description: string;
+  value: string;
+  category: string;
+  superMarkets: string[];
+  id: string;
+}
 
 @IonicPage()
 @Component({
@@ -11,14 +20,14 @@ import { v4 as uuidv4 } from 'uuid';
   templateUrl: 'cadastro.html',
 })
 export class CadastroPage {
-  public product = {
+  public product: IProduct = {
     description: "",
     value: "",
     category: "",
     superMarkets: [],
     id: uuidv4()
   };
-  public place;
+  public place: string;
 
   constructor(
     public navCtrl: NavController,
@@ -39,14 +48,14 @@ export class CadastroPage {
     console.log(this.product);
   }
 
-  removePlaceFromSuperMarkets(name) {
+  removePlaceFromSuperMarkets(name: string) {
     let index = this.product.superMarkets.indexOf(name);
     this.product.superMarkets.splice(index, 1);
     console.log(this.product);
   }
 
   async register(register) {
-    let savedProducts = await this.storage.getSaved();
+    let savedProducts: IRecords[] = await this.storage.getSaved();
     let exists = savedProducts.some(alreadyExist => alreadyExist.description === register.description);
     if(exists) {
       return alert("Esse valor já existe");
@@ -60,7 +69,7 @@ export class CadastroPage {
   async autoFill() {
     const descriptions = ["Coquinha", "Pepsi", "Heiniken", "Skol", "Almoço"];
     const values = ["10", "13", "12", "11", "8", "7", "20"];
-    const categories = await this.categoryStorage.getCategory();
+    const categories = await this.categoryStorage.getCategories();
     const superMarkets = ["São Luiz", "Extra", "Gbarbosa", "Mercadinho da esquina", "Bom preço", "Pão de Açucar"];
     this.product = {
       description: descriptions[Math.floor(Math.random()*descriptions.length)],
@@ -76,7 +85,7 @@ export class CadastroPage {
     return superMarket[Math.floor(Math.random()*superMarket.length)];
   }
 
-  editPlace(place) {
+  editPlace(place: string) {
     let index = this.product.superMarkets.indexOf(place);
     this.product.superMarkets[index] = this.place;
   }
@@ -109,7 +118,7 @@ export class CadastroPage {
         },
         {
           text: 'Salvar',
-          handler: data => {
+          handler: (data: ICategory) => {
             console.log('Saved clicked');
             this.categoryStorage.saveCategory(data);
           }
@@ -120,7 +129,7 @@ export class CadastroPage {
   }
 
   async showCategories() {
-    const categories = await this.categoryStorage.getCategory();
+    const categories: ICategory[] = await this.categoryStorage.getCategories();
     let alert = this.alertCtrl.create();
     alert.setTitle('Categorias');
 
@@ -129,7 +138,7 @@ export class CadastroPage {
       alert.addInput({
         type: 'radio',
         label: element.name,
-        value: element,
+        value: element as any,
         checked: true
       });
     }
@@ -145,8 +154,8 @@ export class CadastroPage {
     alert.addButton('Cancel');
     alert.addButton({
       text: 'OK',
-      handler: data => {
-        console.log("escolheu ",  data.name);
+      handler: (data: ICategory) => {
+        console.log("escolheu ",  data);
         this.product.category = data.name;
       }
     });

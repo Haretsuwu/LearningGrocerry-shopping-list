@@ -10,7 +10,7 @@
 
   <ion-list *ngFor="let category of categories">
     {{ category.name }} <br>
-    <button ion-button primary (click)="update()"> Update </button>
+    <button ion-button primary (click)="update(category)"> Update </button>
     <button ion-button secondary (click)="delete(category)"> Deletar </button>
   </ion-list>
 

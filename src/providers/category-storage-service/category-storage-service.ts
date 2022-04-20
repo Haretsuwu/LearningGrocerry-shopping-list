@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { v4 as uuidv4 } from 'uuid';
+import { ICategory } from '../../interfaces/ICategory';
 
 
 @Injectable()
@@ -19,7 +20,7 @@ export class CategoryStorageServiceProvider {
   // }
 
   async initData(initialCategoriesName: string[]) {
-    let getCategory = await this.getCategory();
+    let getCategory = await this.getCategories();
     if (getCategory.length === 0) {
       for (let index = 0; index < initialCategoriesName.length; index++) {
         const categoryName = initialCategoriesName[index];
@@ -29,25 +30,28 @@ export class CategoryStorageServiceProvider {
     await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
   
-  async saveCategory(category) {
-    let getCategory = await this.getCategory();
+  async saveCategory(category: ICategory) {
+    let getCategory = await this.getCategories();
     getCategory.push({name: category.name, id: uuidv4()});
     await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
-  async getCategory() {
-    return await this.storage.get(this.categoriesString) || [];
+  async getCategories(): Promise<ICategory[]> {
+    let savedCategories: ICategory[] = await this.storage.get(this.categoriesString) || [];
+    if(savedCategories) {
+      return savedCategories;
+    }
   }
 
-  async updateCategory(categoryToBeUpdate) {
-    let getCategory = await this.getCategory();
+  async updateCategory(categoryToBeUpdate: ICategory) {
+    let getCategory = await this.getCategories();
     let index = getCategory.findIndex(category => category.id === categoryToBeUpdate.id);
     getCategory.splice(index, 1, categoryToBeUpdate);
     await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
-  async removeCategory(categoryToBeRemoved) {
-    let getCategory = await this.getCategory();
+  async removeCategory(categoryToBeRemoved: ICategory) {
+    let getCategory = await this.getCategories();
     let index = getCategory.findIndex(product => product.id === categoryToBeRemoved.id);
     getCategory.splice(index, 1);
     await this.storage.set(this.categoriesString, getCategory); //não precisa

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { IRecords } from '../../interfaces/IRecords';
 
 
 @Injectable()
@@ -9,29 +10,30 @@ export class StorageServiceProvider {
   constructor(public storage: Storage) {
   }
   
-  async getSaved() {
-    let savedProducts = await this.storage.get(this.registersString) || [];
+  async getSaved(): Promise<IRecords[]> {
+    let savedProducts: IRecords[] = await this.storage.get(this.registersString) || [];
     if(savedProducts) {
+      console.log(savedProducts);
       return savedProducts;
     }
   }
 
-  async save(value) {
-    let getSaved = await this.getSaved();
+  async save(value: IRecords): Promise<void> {
+    let getSaved: IRecords[] = await this.getSaved();
     getSaved = getSaved ? getSaved : [];
     getSaved.push(value);
     await this.storage.set(this.registersString, getSaved); //não precisa
   }
 
-  async removeItem(productToBeDeleted) {
-    let savedItem = await this.getSaved();
+  async removeItem(productToBeDeleted): Promise<void> {
+    let savedItem: IRecords[] = await this.getSaved();
     let index = savedItem.findIndex(product => product.id === productToBeDeleted.id);
     savedItem.splice(index, 1);
     await this.storage.set(this.registersString, savedItem); //não precisa
   }
 
-  async updateItem(itemToBeUpdate) {
-    let savedItem = await this.getSaved();
+  async updateItem(itemToBeUpdate): Promise<void> {
+    let savedItem: IRecords[] = await this.getSaved();
     let index = savedItem.findIndex(product => product.id === itemToBeUpdate.id);
     savedItem.splice(index, 1, itemToBeUpdate);
     await this.storage.set(this.registersString, savedItem); //não precisa

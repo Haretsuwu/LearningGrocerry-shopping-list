@@ -1,16 +1,23 @@
+import { ICategory } from './../../interfaces/ICategory';
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
+import { IRecords } from '../../interfaces/IRecords';
 import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
 import { CategoryPage } from '../category/category';
 import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
 import { CadastroPage } from './../cadastro/cadastro';
+
+interface ICategoryAndValue {
+  category: ICategory;
+  value: number;
+}
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public records: any;
+  public records: IRecords[]; //Array<IRecords>
 
   constructor(public navCtrl: NavController,
     public storage: StorageServiceProvider,
@@ -25,14 +32,6 @@ export class HomePage {
 
   async preSetedCategories() {
     await this.categoryStorage.initData(["Sem categoria","Refeição", "Suco", "Limpeza"]);
-  }
-
-  async pegaDados() {
-    const resultado: any = await fetch('https://api.github.com/users/IArturRodrigues')
-    const resultado2: any = await fetch('https://api.github.com/users/IArturRodrigues')
-    const resultado3: any = await fetch('https://api.github.com/users/IArturRodrigues')
-
-    console.log(resultado.status);
   }
 
   ionViewDidEnter() {
@@ -55,20 +54,20 @@ export class HomePage {
   //   this.showSumValuesByCategory();
   // }
 
-  sumAllProductValue() {
-    let plus = 0;
+  sumAllProductValue(): number {
+    let sumAllProductValues: number = 0;
     if (this.records) {
       this.records.forEach(element => {
-        plus += +element.value;
+        sumAllProductValues += +element.value;
       });
     }
-    return plus; //precisa, pois a função tem que mostrar o valor dessa variavel
+    return sumAllProductValues; //precisa, pois a função tem que mostrar o valor dessa variavel
   }
 
   showSumValuesByCategory() {
-    let categoryAndValues = [];
+    let categoryAndValues: ICategoryAndValue[] = [];
     if (this.records) {
-      this.records.forEach(obj => {
+      this.records.forEach((obj: IRecords) => {
         let soma = 0;
         let existe = categoryAndValues.some(nResult => nResult.category == obj.category);
         this.records.filter((objt) => {
@@ -114,7 +113,7 @@ export class HomePage {
     this.navCtrl.push(CategoryPage);
   }
 
-  editProduct(product) {
+  editProduct(product: IRecords) {
     this.navCtrl.push(CadastroPage, {
       'product': product
     });
