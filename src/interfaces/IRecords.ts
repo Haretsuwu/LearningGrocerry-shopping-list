@@ -1,9 +1,10 @@
 import { ICategory } from './ICategory';
 
 export interface IRecords {
-    category: ICategory;
     description: string;
+    value: string;
+    category: ICategory;
     id: string;
     superMarkets: string[];
-    value: string;
+    img: string;
 }

@@ -18,11 +18,11 @@ export class CategoryPage {
     public categoryStorage: CategoryStorageServiceProvider
     ) {}
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.getCategories();
   }
 
-  async getCategories() {
+  async getCategories(): Promise<void> {
     this.categories = await this.categoryStorage.getCategories();
   }
 
@@ -36,7 +36,7 @@ export class CategoryPage {
   //   });
   // }
 
-  create() {
+  create(): void {
     const prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       inputs: [
@@ -65,7 +65,7 @@ export class CategoryPage {
     prompt.present();
   }
 
-  update(category: ICategory) {
+  update(category: ICategory): void {
     const prompt = this.alertCtrl.create({
       title: 'Editar Categoria',
       inputs: [
@@ -96,7 +96,7 @@ export class CategoryPage {
     prompt.present();
   }
 
-  async delete(category: ICategory) {
+  async delete(category: ICategory): Promise<void> {
     await this.categoryStorage.removeCategory(category);
     this.getCategories();
   }

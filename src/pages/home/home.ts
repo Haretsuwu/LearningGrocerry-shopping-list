@@ -30,17 +30,17 @@ export class HomePage {
 
   // this.categoryStorage.initData(["Refeição", "Suco", "Limpeza"]);
 
-  async preSetedCategories() {
-    await this.categoryStorage.initData(["Sem categoria","Refeição", "Suco", "Limpeza"]);
+  async preSetedCategories(): Promise<void> {
+    await this.categoryStorage.initData(["Sem categoria", "Refeição", "Suco", "Limpeza"]);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.showProductsListInPage();
     // this.sumAllProductValue();
     // this.showSumValuesByCategory();
   }
 
-  async showProductsListInPage() {
+  async showProductsListInPage(): Promise<void> {
     this.records = await this.storage.getSaved();
   }
 
@@ -64,7 +64,7 @@ export class HomePage {
     return sumAllProductValues; //precisa, pois a função tem que mostrar o valor dessa variavel
   }
 
-  showSumValuesByCategory() {
+  showSumValuesByCategory(): ICategoryAndValue[] {
     let categoryAndValues: ICategoryAndValue[] = [];
     if (this.records) {
       this.records.forEach((obj: IRecords) => {
@@ -84,10 +84,21 @@ export class HomePage {
     return categoryAndValues; //precisa retornar os elementos desse array
   }
 
-  // async junk() {
-  //   console.log("return ",this.thisFunctionReturnAValue());
-  //   console.log("not return ",this.thisFunctionNotReturn());
-  // }
+  async junk() {
+    console.log(this.showProductsListInPage());
+  }
+
+  convertFileSrc(filePath: string): string {
+
+    //esse código é o seguinte......quando o usuario seleciona uma imagem, essa imagem fica em base64, não é salva na hora o motivo é que se o usuario tirar/selecionar mais de uma imagem, a imagem antiga já terá sido salva no aparelho, com isso acumulando muito espaço, então eu mudei a estrategia pra salvar a imagem SOMENTE depois que salvar o pagamento, porem é necessario mostrar a iamgem em tela, então se for base64 apenas retorna, e se for path_filesystem, faz o tratamento abaixo
+    var re = /data:image\//i;
+    var found = filePath.match(re);
+    if (found) {
+      return filePath;
+    }
+
+    return (<any>window).Ionic.WebView.convertFileSrc(filePath);
+  }
 
   // thisFunctionReturnAValue() {
   //   return "Olá mundo";
@@ -105,15 +116,15 @@ export class HomePage {
   //   return "não";
   // }
 
-  goToCadastroPage() {
+  goToCadastroPage(): void {
     this.navCtrl.push(CadastroPage);
   }
 
-  goToCategoryPage() {
+  goToCategoryPage(): void {
     this.navCtrl.push(CategoryPage);
   }
 
-  editProduct(product: IRecords) {
+  editProduct(product: IRecords): void {
     this.navCtrl.push(CadastroPage, {
       'product': product
     });

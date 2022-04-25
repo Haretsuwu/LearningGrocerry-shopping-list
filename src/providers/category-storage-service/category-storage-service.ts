@@ -19,7 +19,7 @@ export class CategoryStorageServiceProvider {
   //   }
   // }
 
-  async initData(initialCategoriesName: string[]) {
+  async initData(initialCategoriesName: string[]): Promise<void> {
     let getCategory = await this.getCategories();
     if (getCategory.length === 0) {
       for (let index = 0; index < initialCategoriesName.length; index++) {
@@ -30,7 +30,7 @@ export class CategoryStorageServiceProvider {
     await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
   
-  async saveCategory(category: ICategory) {
+  async saveCategory(category: ICategory): Promise<void> {
     let getCategory = await this.getCategories();
     getCategory.push({name: category.name, id: uuidv4()});
     await this.storage.set(this.categoriesString, getCategory); //não precisa
@@ -43,14 +43,14 @@ export class CategoryStorageServiceProvider {
     }
   }
 
-  async updateCategory(categoryToBeUpdate: ICategory) {
+  async updateCategory(categoryToBeUpdate: ICategory): Promise<void> {
     let getCategory = await this.getCategories();
     let index = getCategory.findIndex(category => category.id === categoryToBeUpdate.id);
     getCategory.splice(index, 1, categoryToBeUpdate);
     await this.storage.set(this.categoriesString, getCategory); //não precisa
   }
 
-  async removeCategory(categoryToBeRemoved: ICategory) {
+  async removeCategory(categoryToBeRemoved: ICategory): Promise<void> {
     let getCategory = await this.getCategories();
     let index = getCategory.findIndex(product => product.id === categoryToBeRemoved.id);
     getCategory.splice(index, 1);

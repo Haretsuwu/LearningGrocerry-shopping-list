@@ -1,16 +1,18 @@
-import { IRecords } from './../../interfaces/IRecords';
 import { ICategory } from './../../interfaces/ICategory';
 import { Component } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
 import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
 import { v4 as uuidv4 } from 'uuid';
+import { IRecords } from './../../interfaces/IRecords';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 interface IProduct {
   description: string;
   value: string;
   category: string;
   superMarkets: string[];
+  img: string;
   id: string;
 }
 
@@ -25,6 +27,7 @@ export class CadastroPage {
     value: "",
     category: "",
     superMarkets: [],
+    img: "",
     id: uuidv4()
   };
   public place: string;
@@ -34,7 +37,8 @@ export class CadastroPage {
     public navParams: NavParams,
     public storage: StorageServiceProvider,
     public categoryStorage: CategoryStorageServiceProvider,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private camera: Camera
     ) {
       let productComingFromHome = this.navParams.get('product');
       if(productComingFromHome) {
@@ -42,19 +46,19 @@ export class CadastroPage {
       }
   }
 
-  addPlaceToSuperMarkets() {
+  addPlaceToSuperMarkets(): void {
     this.product.superMarkets.push(this.place);
     this.product.superMarkets.filter(Boolean);
     console.log(this.product);
   }
 
-  removePlaceFromSuperMarkets(name: string) {
+  removePlaceFromSuperMarkets(name: string): void {
     let index = this.product.superMarkets.indexOf(name);
     this.product.superMarkets.splice(index, 1);
     console.log(this.product);
   }
 
-  async register(register) {
+  async register(register: IRecords): Promise<void> {
     let savedProducts: IRecords[] = await this.storage.getSaved();
     let exists = savedProducts.some(alreadyExist => alreadyExist.description === register.description);
     if(exists) {
@@ -66,7 +70,7 @@ export class CadastroPage {
     // this.storage.save(register).then(res => res).then(json => console.log(json));
   }
 
-  async autoFill() {
+  async autoFill(): Promise<void> {
     const descriptions = ["Coquinha", "Pepsi", "Heiniken", "Skol", "Almoço"];
     const values = ["10", "13", "12", "11", "8", "7", "20"];
     const categories = await this.categoryStorage.getCategories();
@@ -76,31 +80,32 @@ export class CadastroPage {
       value: values[Math.floor(Math.random()*values.length)],
       category: categories[Math.floor(Math.random()*categories.length)].name,
       superMarkets: [],
+      img: "",
       id: uuidv4()
     };
     this.place = this.randomSuperMarkets(superMarkets);
   }
 
-  randomSuperMarkets(superMarket: string[]) {
+  randomSuperMarkets(superMarket: string[]): string {
     return superMarket[Math.floor(Math.random()*superMarket.length)];
   }
 
-  editPlace(place: string) {
+  editPlace(place: string): void {
     let index = this.product.superMarkets.indexOf(place);
     this.product.superMarkets[index] = this.place;
   }
 
-  removeProduct() {
+  removeProduct(): void {
     this.storage.removeItem(this.product);
     console.log("product removed");
   }
 
-  uppdateProduct() {
+  uppdateProduct(): void {
     this.storage.updateItem(this.product);
     console.log("produto ", this.product);
   }
 
-  saveNewCategory() {
+  saveNewCategory(): void {
     const prompt = this.alertCtrl.create({
       title: 'Nova Categoria',
       inputs: [
@@ -128,7 +133,7 @@ export class CadastroPage {
     prompt.present();
   }
 
-  async showCategories() {
+  async showCategories(): Promise<void> {
     const categories: ICategory[] = await this.categoryStorage.getCategories();
     let alert = this.alertCtrl.create();
     alert.setTitle('Categorias');
@@ -167,4 +172,24 @@ export class CadastroPage {
     });
     alert.present();
   }
+
+  cameraTeste() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      // destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+      // this.product.img = `data:image/jpeg;base64,${imageData}`;
+      this.product.img = `${imageData}`;
+      console.log(this.product.img);
+    }, (err) => {
+      console.log(err)
+    });
+  }
+
+  
 }

@@ -17,8 +17,12 @@
     <span *ngIf="records"> quantidade: {{ records.length }} </span>
     soma dos valores {{ sumAllProductValue() }} <br>
     <button ion-item *ngFor="let record of records" (click)="editProduct(record)">
-      {{ record.description }}: {{ record.value }} <br>
-      {{ record.category }} <br>
+      <ion-avatar item-start>
+        <img src="{{ convertFileSrc(record.img) }}">
+      </ion-avatar>
+      Nome: {{ record.description }} <br>
+      Valor: {{ record.value }} <br>
+      Categoria: {{ record.category }} <br>
       Super Mercados:
       <span>
         <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
