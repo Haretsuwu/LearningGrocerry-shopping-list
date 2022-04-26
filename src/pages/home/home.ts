@@ -1,11 +1,14 @@
-import { ICategory } from './../../interfaces/ICategory';
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { IRecords } from '../../interfaces/IRecords';
-import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
-import { CategoryPage } from '../category/category';
-import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
 import { CadastroPage } from './../cadastro/cadastro';
+import { CategoryPage } from '../category/category';
+
+import { CategoryStorageServiceProvider } from '../../providers/category-storage-service/category-storage-service';
+import { StorageServiceProvider } from './../../providers/storage-service/storage-service';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
+import { IRecords } from '../../interfaces/IRecords';
+import { ICategory } from './../../interfaces/ICategory';
 
 interface ICategoryAndValue {
   category: ICategory;
@@ -22,7 +25,8 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     public storage: StorageServiceProvider,
     public categoryStorage: CategoryStorageServiceProvider,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    private socialSharing: SocialSharing
   ) {
     this.preSetedCategories();
   }
@@ -90,7 +94,10 @@ export class HomePage {
 
   convertFileSrc(filePath: string): string {
 
-    //esse código é o seguinte......quando o usuario seleciona uma imagem, essa imagem fica em base64, não é salva na hora o motivo é que se o usuario tirar/selecionar mais de uma imagem, a imagem antiga já terá sido salva no aparelho, com isso acumulando muito espaço, então eu mudei a estrategia pra salvar a imagem SOMENTE depois que salvar o pagamento, porem é necessario mostrar a iamgem em tela, então se for base64 apenas retorna, e se for path_filesystem, faz o tratamento abaixo
+    //esse código é o seguinte......quando o usuario seleciona uma imagem, essa imagem fica em base64,
+    //não é salva na hora o motivo é que se o usuario tirar/selecionar mais de uma imagem, a imagem antiga já terá sido salva no aparelho,
+    //com isso acumulando muito espaço, então eu mudei a estrategia pra salvar a imagem SOMENTE depois que salvar o pagamento, porem é necessario mostrar a imagem em tela,
+    //então se for base64 apenas retorna, e se for path_filesystem, faz o tratamento abaixo
     var re = /data:image\//i;
     var found = filePath.match(re);
     if (found) {
@@ -98,6 +105,10 @@ export class HomePage {
     }
 
     return (<any>window).Ionic.WebView.convertFileSrc(filePath);
+  }
+
+  useSocialSharing(record) {
+    this.socialSharing.share(null, null, record.img, null);
   }
 
   // thisFunctionReturnAValue() {

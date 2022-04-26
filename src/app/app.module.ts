@@ -3,16 +3,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CadastroPage } from './../pages/cadastro/cadastro';
-import { IonicStorageModule } from '@ionic/storage';
+import { CategoryPage } from '../pages/category/category';
 
+import { IonicStorageModule } from '@ionic/storage';
 import { StorageServiceProvider } from './../providers/storage-service/storage-service';
 import { CategoryStorageServiceProvider } from '../providers/category-storage-service/category-storage-service';
-import { CategoryPage } from '../pages/category/category';
+import { Camera } from '@ionic-native/camera';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CategoryPage } from '../pages/category/category';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     StorageServiceProvider,
     CategoryStorageServiceProvider,
-    Camera
+    Camera,
+    SocialSharing
   ]
 })
 export class AppModule {}

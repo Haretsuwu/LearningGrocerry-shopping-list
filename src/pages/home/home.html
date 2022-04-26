@@ -13,21 +13,26 @@
   <div ion-item *ngFor="let element of showSumValuesByCategory()">
     {{ element.category }}: {{ element.value }} <br>
   </div>
-  <ion-list>
-    <span *ngIf="records"> quantidade: {{ records.length }} </span>
+  <div ion-item>
+    <span *ngIf="records"> quantidade: {{ records.length }} </span> <br>
     soma dos valores {{ sumAllProductValue() }} <br>
-    <button ion-item *ngFor="let record of records" (click)="editProduct(record)">
-      <ion-avatar item-start>
-        <img src="{{ convertFileSrc(record.img) }}">
-      </ion-avatar>
-      Nome: {{ record.description }} <br>
-      Valor: {{ record.value }} <br>
-      Categoria: {{ record.category }} <br>
-      Super Mercados:
-      <span>
-        <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
-      </span>
-    </button>
+  </div>
+  <ion-list *ngFor="let record of records">
+    <ion-item>
+      <button ion-item (click)="editProduct(record)">
+        <ion-avatar item-start>
+          <img src="{{ convertFileSrc(record.img) }}">
+        </ion-avatar>
+        Nome: {{ record.description }} <br>
+        Valor: {{ record.value }} <br>
+        Categoria: {{ record.category }} <br>
+        Super Mercados:
+        <span>
+          <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
+        </span> <br>
+      </button>
+      <button ion-button primary *ngIf="convertFileSrc(record.img)" (click)="useSocialSharing(record)">Testando</button>
+    </ion-item>
   </ion-list>
   <!-- <button ion-button full (click)="showRadio()"> junk </button>
   <button ion-button full (click)="showPrompt()"> teste </button> -->

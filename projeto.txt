@@ -18,7 +18,9 @@ Verificar se o atualizar produtos está funcionando
 Criar categorias padrões
 Instalar plugin nativo da camera
 
+instalar social share
 
+começar css
 
 
 Tarefa de casa:

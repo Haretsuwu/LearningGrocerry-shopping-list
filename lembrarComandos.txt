@@ -1,5 +1,5 @@
 ComandosNices {
-    executa projeto e um device especifico: ionic cordova run android --target=Pixel_5_API_28
+    executa projeto e um device especifico: ionic cordova run android --target=MyPixel
     lista os devices disponiveis: ionic cordova run android --list
     adiciona a plataforma android no projeto: ionic cordova platform add android
     builda : ionic cordova build android
