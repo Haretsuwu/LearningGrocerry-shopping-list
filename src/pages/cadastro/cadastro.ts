@@ -61,11 +61,8 @@ export class CadastroPage {
   async register(register: IRecords): Promise<void> {
     let savedProducts: IRecords[] = await this.storage.getSaved();
     let exists = savedProducts.some(alreadyExist => alreadyExist.description === register.description);
-    if(exists) {
-      return alert("Esse valor já existe");
-      // return;
-    }
-    console.log("Não deveria estar aqui")
+    if(exists) return alert("Esse valor já existe");
+    if(register.description == "" || register.value == "") return alert("Valor ou descrição inválidos");
     await this.storage.save(register);
     // this.storage.save(register).then(res => res).then(json => console.log(json));
   }

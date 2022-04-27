@@ -1,28 +1,27 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-icon name="md-settings"></ion-icon>
+    <ion-title style="text-align: center;">
       Lista de Registros
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <button ion-button secondary (click)="junk()"> junk </button>
-  <button ion-button primary (click)="goToCadastroPage()"> Cadastrar </button>
+  <!-- <button ion-button primary (click)="goToCadastroPage()"> Cadastrar </button> -->
   <button ion-button secondary (click)="goToCategoryPage()"> Categorias </button>
-  <div ion-item *ngFor="let element of showSumValuesByCategory()">
-    {{ element.category }}: {{ element.value }} <br>
-  </div>
-  <div ion-item>
-    <span *ngIf="records"> quantidade: {{ records.length }} </span> <br>
-    soma dos valores {{ sumAllProductValue() }} <br>
-  </div>
-  <ion-list *ngFor="let record of records">
-    <ion-item>
-      <button ion-item (click)="editProduct(record)">
-        <ion-avatar item-start>
+  <br>
+  <br>
+  
+  <div class="displayGrid">
+
+    <ion-list class="productList" *ngFor="let record of records">
+      
+      <button class="product" (click)="editProduct(record)">
+        <!-- <ion-avatar item-start>
           <img src="{{ convertFileSrc(record.img) }}">
-        </ion-avatar>
+        </ion-avatar> -->
         Nome: {{ record.description }} <br>
         Valor: {{ record.value }} <br>
         Categoria: {{ record.category }} <br>
@@ -31,9 +30,37 @@
           <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
         </span> <br>
       </button>
-      <button ion-button primary *ngIf="convertFileSrc(record.img)" (click)="useSocialSharing(record)">Testando</button>
-    </ion-item>
-  </ion-list>
+
+      <button class="shareButton" (click)="junk()"><ion-icon name="md-share"></ion-icon></button>
+      <!-- <button ion-button primary *ngIf="convertFileSrc(record.img)" (click)="useSocialSharing(record)">Testando</button> -->
+      
+    </ion-list>
+
+    </div>
+
+  <ion-fab class="addProduct" bottom right>
+    <button ion-fab large (click)="goToCadastroPage()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+  
+  <div class="footer">
+  
+    <div ion-item>
+      <span *ngIf="records"> 
+        Quantidade: {{ records.length }} 
+      </span> <br>
+      Total: R${{ sumAllProductValue() }} <br>
+    </div>
+    
+    <!-- <div class="categoryAndValue" ion-item *ngFor="let element of showSumValuesByCategory()">
+      {{ element.category }}: {{ element.value }} <br>
+    </div> -->
+  
+    <button class="valueByCategory" ion-item (click)="showCategoriesAndValues()">Valores por categoria</button>
+    <!-- <button class="valueByCategory" ion-item (click)="testAlert()">Valores por categoria teste</button> -->
+  
+  </div>
+  
   <!-- <button ion-button full (click)="showRadio()"> junk </button>
-  <button ion-button full (click)="showPrompt()"> teste </button> -->
+    <button ion-button full (click)="showPrompt()"> teste </button> -->
 </ion-content>
+  

@@ -1,3 +1,54 @@
 page-home {
 
+    :root {
+        --listColor: white;
+    }
+
+    .displayGrid {
+        display: grid;
+        grid-template-columns: repeat(2, 46%);
+        grid-gap: 3%;
+        place-items: center;
+        justify-content: center;
+        // align-items: center;
+    }
+
+    .productList {
+        border: 1px solid black;
+        border-radius: 15px;
+    }
+
+    .product {
+        font-size: 15px;
+        text-align: left;
+        background-color: white;
+        border-radius: 15px;
+    }
+
+    .shareButton {
+        display: block;
+        width: 80%;
+        height: auto;
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: red;
+    }
+
+    .addProduct {
+        position: fixed;
+        justify-content: right;
+        bottom: 100px;
+    }
+
+    .footer {
+        position: absolute;
+        text-align: left;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .valueByCategory {
+        border: 1px solid black;
+    }
 }

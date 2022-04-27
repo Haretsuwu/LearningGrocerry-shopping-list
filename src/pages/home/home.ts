@@ -20,7 +20,7 @@ interface ICategoryAndValue {
   templateUrl: 'home.html'
 })
 export class HomePage {
-  public records: IRecords[]; //Array<IRecords>
+  public records: IRecords[]; //this.showSumValuesByCategory()<IRecords>
 
   constructor(public navCtrl: NavController,
     public storage: StorageServiceProvider,
@@ -58,15 +58,35 @@ export class HomePage {
   //   this.showSumValuesByCategory();
   // }
 
-  sumAllProductValue(): number {
+  sumAllProductValue(): string {
     let sumAllProductValues: number = 0;
     if (this.records) {
       this.records.forEach(element => {
         sumAllProductValues += +element.value;
       });
     }
-    return sumAllProductValues; //precisa, pois a função tem que mostrar o valor dessa variavel
+    return sumAllProductValues.toFixed(2); //precisa, pois a função tem que mostrar o valor dessa variavel
   }
+
+  showCategoriesAndValues() {
+    const alert = this.alertCtrl.create();
+    alert.setTitle('Categorias');
+    for (let index = 0; index < this.showSumValuesByCategory().length; index++) {
+      const element = this.showSumValuesByCategory()[index];
+      alert.setMessage(`${element.category}:  ${element.value}`);
+    }
+    alert.addButton('OK');
+    alert.present();
+  }
+
+  // testAlert() {
+  //   const alert = this.alertCtrl.create({
+  //     title: 'Categorias',
+  //     subTitle: ,
+  //     buttons: ['OK']
+  //   });
+  //   alert.present();
+  // }
 
   showSumValuesByCategory(): ICategoryAndValue[] {
     let categoryAndValues: ICategoryAndValue[] = [];
@@ -85,27 +105,27 @@ export class HomePage {
         }
       });
     }
-    return categoryAndValues; //precisa retornar os elementos desse array
+    return categoryAndValues; //precisa retornar os elementos desse this.showSumValuesByCategory()
   }
 
   async junk() {
     console.log(this.showProductsListInPage());
   }
 
-  convertFileSrc(filePath: string): string {
+  // convertFileSrc(filePath: string): string {
 
-    //esse código é o seguinte......quando o usuario seleciona uma imagem, essa imagem fica em base64,
-    //não é salva na hora o motivo é que se o usuario tirar/selecionar mais de uma imagem, a imagem antiga já terá sido salva no aparelho,
-    //com isso acumulando muito espaço, então eu mudei a estrategia pra salvar a imagem SOMENTE depois que salvar o pagamento, porem é necessario mostrar a imagem em tela,
-    //então se for base64 apenas retorna, e se for path_filesystem, faz o tratamento abaixo
-    var re = /data:image\//i;
-    var found = filePath.match(re);
-    if (found) {
-      return filePath;
-    }
+  //   //esse código é o seguinte......quando o usuario seleciona uma imagem, essa imagem fica em base64,
+  //   //não é salva na hora o motivo é que se o usuario tirar/selecionar mais de uma imagem, a imagem antiga já terá sido salva no aparelho,
+  //   //com isso acumulando muito espaço, então eu mudei a estrategia pra salvar a imagem SOMENTE depois que salvar o pagamento, porem é necessario mostrar a imagem em tela,
+  //   //então se for base64 apenas retorna, e se for path_filesystem, faz o tratamento abaixo
+  //   var re = /data:image\//i;
+  //   var found = filePath.match(re);
+  //   if (found) {
+  //     return filePath;
+  //   }
 
-    return (<any>window).Ionic.WebView.convertFileSrc(filePath);
-  }
+  //   return (<any>window).Ionic.WebView.convertFileSrc(filePath);
+  // }
 
   useSocialSharing(record) {
     this.socialSharing.share(null, null, record.img, null);
