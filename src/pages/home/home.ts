@@ -73,7 +73,10 @@ export class HomePage {
     alert.setTitle('Categorias');
     for (let index = 0; index < this.showSumValuesByCategory().length; index++) {
       const element = this.showSumValuesByCategory()[index];
-      alert.setMessage(`${element.category}:  ${element.value}`);
+      alert.addInput({
+        type: 'checkbox',
+        label: `${element.category}:  ${element.value}`
+      });
     }
     alert.addButton('OK');
     alert.present();
@@ -82,8 +85,8 @@ export class HomePage {
   // testAlert() {
   //   const alert = this.alertCtrl.create({
   //     title: 'Categorias',
-  //     subTitle: ,
-  //     buttons: ['OK']
+  //     message: '',
+  //     buttons: []
   //   });
   //   alert.present();
   // }

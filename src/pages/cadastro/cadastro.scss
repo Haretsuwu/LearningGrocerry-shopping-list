@@ -1,3 +1,48 @@
 page-cadastro {
 
+    .autoFillButton {
+        display: flex;
+        position: absolute;
+        width: 47%;
+        height: 30px;
+        border: 1px solid black;
+        border-radius: 5px;
+        font-size: large;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        background-color: deepskyblue;
+        margin-top: 3%;
+        margin-left: 2%;
+    }
+
+    .listDisplay {
+        display: flex;
+        width: 96%;
+        margin-left: 2%;
+        margin-right: 2%;
+        border: 1px solid black;
+        border-radius: 10px;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .inputList {
+        width: 98%;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .topInput {
+        margin-top: 2%;
+    }
+
+    .buttons {
+        width: 90%;
+        border-radius: 10px;
+        background-color: darkturquoise;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
 }

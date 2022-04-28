@@ -60,9 +60,11 @@ export class CadastroPage {
 
   async register(register: IRecords): Promise<void> {
     let savedProducts: IRecords[] = await this.storage.getSaved();
+    let savedCategories: ICategory[] = await this.categoryStorage.getCategories();
     let exists = savedProducts.some(alreadyExist => alreadyExist.description === register.description);
     if(exists) return alert("Esse valor já existe");
     if(register.description == "" || register.value == "") return alert("Valor ou descrição inválidos");
+    if(this.product.category == "") this.product.category = savedCategories[0].name;
     await this.storage.save(register);
     // this.storage.save(register).then(res => res).then(json => console.log(json));
   }
@@ -135,13 +137,20 @@ export class CadastroPage {
     let alert = this.alertCtrl.create();
     alert.setTitle('Categorias');
 
-    for (let index = 0; index < categories.length; index++) {
+    alert.addInput({
+      type: 'radio',
+      label: categories[0].name,
+      value: categories[0] as any,
+      checked: true
+    });
+
+    for (let index = 1; index < categories.length; index++) {
       const element = categories[index];
       alert.addInput({
         type: 'radio',
         label: element.name,
         value: element as any,
-        checked: true
+        checked: false
       });
     }
     // for(let category of this.product.category) {
@@ -168,6 +177,13 @@ export class CadastroPage {
       }
     });
     alert.present();
+  }
+
+  async saveOrUpdateProduct(product: IRecords): Promise<void> {
+    let savedProducts: IRecords[] = await this.storage.getSaved();
+    let alreadyInStorage = savedProducts.some(alreadyStoragedProduct => alreadyStoragedProduct.id === product.id);
+    if(alreadyInStorage) return this.uppdateProduct()
+    this.register(product);
   }
 
   cameraTeste() {

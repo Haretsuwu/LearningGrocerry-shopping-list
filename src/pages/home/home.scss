@@ -13,26 +13,37 @@ page-home {
         // align-items: center;
     }
 
-    .productList {
+    .productBox {
+        display: flex;
+        flex-direction: column;
         border: 1px solid black;
         border-radius: 15px;
+        max-width: 98%;
+        min-height: 130px;
+        max-height: 200px;
     }
 
     .product {
+        flex: 1;
         font-size: 15px;
         text-align: left;
         background-color: white;
-        border-radius: 15px;
+        border-radius: 15px 15px 0px 0px;
     }
 
     .shareButton {
-        display: block;
-        width: 80%;
-        height: auto;
-        background-color: white;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: red;
+        // display: block;
+        // margin-left: auto;
+        // margin-right: auto;
+        // position: sticky;
+        // bottom: 0;
+        // justify-self: end;
+        flex-shrink: 0;
+        margin-bottom: 0px;
+        width: 100%;
+        min-height: 30px;
+        border-radius: 0px 0px 15px 15px;
+        background-color: darkcyan;
     }
 
     .addProduct {

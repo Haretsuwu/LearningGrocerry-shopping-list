@@ -1,6 +1,5 @@
 <ion-header>
   <ion-navbar>
-    <ion-icon name="md-settings"></ion-icon>
     <ion-title style="text-align: center;">
       Lista de Registros
     </ion-title>
@@ -8,6 +7,18 @@
 </ion-header>
 
 <ion-content>
+
+  <!-- <div style="display: flex; flex-direction: column; border: 1px gray solid;">
+    <div style="flex: 1;">
+      TEXTO PRINCIPAL AQUI <BR>
+      TEXTO PRINCIPAL AQUI <BR>
+      TEXTO PRINCIPAL AQUI <BR>
+    </div>
+    <div style="flex: 1; background-color: teal; color: white; height: 1rem;">
+      <ion-icon name="md-share"></ion-icon>
+    </div>
+  </div> -->
+
   <button ion-button secondary (click)="junk()"> junk </button>
   <!-- <button ion-button primary (click)="goToCadastroPage()"> Cadastrar </button> -->
   <button ion-button secondary (click)="goToCategoryPage()"> Categorias </button>
@@ -16,7 +27,7 @@
   
   <div class="displayGrid">
 
-    <ion-list class="productList" *ngFor="let record of records">
+    <ion-list class="productBox" *ngFor="let record of records">
       
       <button class="product" (click)="editProduct(record)">
         <!-- <ion-avatar item-start>
@@ -28,7 +39,8 @@
         Super Mercados:
         <span>
           <ng-container *ngFor="let market of record.superMarkets"> {{market}} - </ng-container>
-        </span> <br>
+        </span>
+        <br>
       </button>
 
       <button class="shareButton" (click)="junk()"><ion-icon name="md-share"></ion-icon></button>
@@ -36,7 +48,7 @@
       
     </ion-list>
 
-    </div>
+  </div>
 
   <ion-fab class="addProduct" bottom right>
     <button ion-fab large (click)="goToCadastroPage()"><ion-icon name="add"></ion-icon></button>
@@ -60,7 +72,5 @@
   
   </div>
   
-  <!-- <button ion-button full (click)="showRadio()"> junk </button>
-    <button ion-button full (click)="showPrompt()"> teste </button> -->
 </ion-content>
   
